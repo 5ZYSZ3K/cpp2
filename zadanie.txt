@@ -1,0 +1,83 @@
+Cały program trzeba mocno zmodyfikować
+Dobra, plan jest taki:
+Klasy
+1.Vehicle (abstrakcyjna)
+pola:
+-capacity (pojemność bagażnika, zależna od marki, typu itd.)
+-mileage (przebieg pojazdu, z każdą jazdą się podbija)
+-price (cena nowego samochodu, zależna od marki, typu itd.)
+-type (typ: rower, motor lub samochód)
+metody:
+-drive() (podbija mileage)
+2.MotorVehicle (abstrakcyjna) (rozszerzająca Vehicle)
+pola:
+-brand (marka pojazdu)
+-currentfuelLevel (poziom paliwa, maksymalny zależny od marki, typu itd.)
+-maxFuelLevel (maksymalny poziom paliwa)
+-basePrice (cena podstawowa)
+metody:
+-refuel() (ustawia poziom paliwa na maksymalny)
+-getPrice() (zwraca cenę, zależna od podstawowej i przebiegu)
+-getMileage() (zwraca przebieg)
+-drive() (nadpisuje tą z vehicle, jeszcze zżera paliwo)
+3.Bike (roszerza Vehicle)
+-basket (koszyk, jest lub nie ma, jak nie ma to ustawiamy capacity na 0 automatycznie)
+-konstruktor (sprawdza tylko czy jest koszyk, nie będę się bawił w marki rowerów)
+-destruktor (ważne żeby był)
+4.Motorcycle (rozszerza MotorVehicle)
+metody:
+-konstruktor (na podstawie marki daje odpowiedni bagażnik, poziom paliwa, cenę itd.)
+-destruktor (ważne żeby był)
+5. Car (rozszerza MotorVehicle)
+-konstruktor (na podstawie marki daje odpowiedni bagażnik, poziom paliwa, cenę itd.)
+-destruktor (ważne żeby był)
+6.Factory
+pola:
+-listOfVehicles (lista wszystkich wyprodukowanych pojazdów)
+metody:
+createVehicle(type, brand) (tworzy pojazd, danego typu (rower, motocykl lub samochód), jeśli to rower to 2 argument sobie radośnie zignoruję, a jeśli to nie rower to ustawi się wszystko jak trzeba)
+sellVehicle(*vehicle) (usuwa z listOfVehicles pointer do danego pojazdu i zwraca ten pointer (tutaj nie wiem czy to dobry pomysł, ale zobaczymy))
+7.Client
+pola:
+-listOfVehicles (lista wszystkich pojazdów klienta)
+-money (hajs klienta)
+metody:
+-buyVehicle(*vehicle, price) (dodaje ten pointer do listOfVehicles i odejmuje cenę od budżetu)
+-sellVehicle(*vehicle) (usuwa z listOfVehicles pointer do danego pojazdu i zwraca ten pointer (j.w.))
+8.CarDealer
+pola:
+-listOfMotorVehicles (musiał się uprzeć na te silnikowe, no nic, damy radę)
+-budget
+-margin
+metody:
+-buyMotorVehicle(*motorVehicle) (standardowa procedura, odejmujemy cenę od budżetu, dodajemy pointer, ale jeszcze zmniejszamy przebieg (jeśli marka odpowiednia) i zmieniamy cenę (mnożymy przez marżę))
+-sellMotorVehicle(*motorVehicle, price) (dodajemy cenę, usuwamy pointer)
+
+I teraz sam schemat działania programu:
+1. Tworzymy klienta (albo dwóch, żeby nie było), komis i fabrykę
+2. przypisujemy im dane wczytane z pliku
+3.właściwa pętla:
+4.Pytanie o to, czym chce użytkownik zarządzać (klientami, komisem czy fabryką)
+
+JEŚLI KLIENTAMI:
+1. wyświetla listę klientów, i pyta, którym chce zarządzać
+2. Wyświetla opcje: kup nowy samochód, kup używany samochód, sprzedaj samochód, zarządzaj samochodami
+2a. Jeśli kup nowy, listuje samochody z fabryki, pyta się który, no i procedura kupna typowa
+2b. Jeśli kup używany, listuje samochody z komisu, pyta się który, no i standardowa procedura
+2c. Jeśli sprzedaj, listuje własne samochody, pyta się który, no i procedura sprzedarzy do komisu
+2d. Listuje: jedź, tankuj, no i pozwala na jazdę i tankowanie
+
+JEŚLI KOMISEM
+1. Wyświetla opcje: kup samochód, sprzedaj samochód
+1a. Jeśli kup samochód, listuje klientów, potem listuje samochody, potem standardowa procedura
+1b. Jeśli sprzedaj samochód, listuje samochody, pyta który, potem listuje klientów, pyta który, i procedura zmieniona, bo marża (dlatego funkcje trochę inne)
+
+JEŚLI FABRYKĄ
+Pyta o markę, typ samochodu i tworzy, bez kombinacji
+
+5. Pytanie, czy chce kontynuować
+5a. Jeśli tak, nie wychodzimy z pętli
+5b. Jeśli nie, wychodzimy
+6. Pytanie o zapisanie
+6a. Jeśli tak, zapisujemy wszystko do plików
+6b. Kończymy program
