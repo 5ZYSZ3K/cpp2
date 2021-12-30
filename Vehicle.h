@@ -1,20 +1,13 @@
-//#include "vehicle_type.cpp"
-
-using namespace std;
-
 class Vehicle {
     protected:
-        string brand;
-        string vehicleType;
-
+        int capacity;
+        double basePrice;
+        double mileage;
+        Vehicle(bool b);
     public:
-
-        explicit Vehicle(VehicleType client_type);
-
-        void refuel();
-
-        void ride();
-
-        void toString(std::ostream&) const;
-
+        virtual void ride(double a) = 0;
+        virtual void toString(std::ostream&) const = 0;
+        double getMileage();
+        double getPrice();
+        double getCapacity();
 };

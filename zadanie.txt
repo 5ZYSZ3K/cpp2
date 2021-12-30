@@ -2,56 +2,66 @@ Cały program trzeba mocno zmodyfikować
 Dobra, plan jest taki:
 Klasy
 1.Vehicle (abstrakcyjna)
-pola:
--capacity (pojemność bagażnika, zależna od marki, typu itd.)
--mileage (przebieg pojazdu, z każdą jazdą się podbija)
--price (cena nowego samochodu, zależna od marki, typu itd.)
--type (typ: rower, motor lub samochód)
-metody:
--drive() (podbija mileage)
+    pola:
+        -capacity (pojemność bagażnika, zależna od marki, typu itd.)
+        -mileage (przebieg pojazdu, z każdą jazdą się podbija)
+        -price (cena nowego samochodu, zależna od marki, typu itd.)
+        -vehicleType (typ: rower, motor lub samochód)
+    metody:
+        -drive() (podbija mileage)
+
 2.MotorVehicle (abstrakcyjna) (rozszerzająca Vehicle)
-pola:
--brand (marka pojazdu)
--currentfuelLevel (poziom paliwa, maksymalny zależny od marki, typu itd.)
--maxFuelLevel (maksymalny poziom paliwa)
--basePrice (cena podstawowa)
-metody:
--refuel() (ustawia poziom paliwa na maksymalny)
--getPrice() (zwraca cenę, zależna od podstawowej i przebiegu)
--getMileage() (zwraca przebieg)
--drive() (nadpisuje tą z vehicle, jeszcze zżera paliwo)
+    pola:
+        -brand (marka pojazdu)
+        -currentfuelLevel (poziom paliwa, maksymalny zależny od marki, typu itd.)
+        -maxFuelLevel (maksymalny poziom paliwa)
+        -basePrice (cena podstawowa)
+    metody:
+        -refuel() (ustawia poziom paliwa na maksymalny)
+        -getPrice() (zwraca cenę, zależna od podstawowej i przebiegu)
+        -getMileage() (zwraca przebieg)
+        -drive() (nadpisuje tą z vehicle, jeszcze zżera paliwo)
+
 3.Bike (roszerza Vehicle)
--basket (koszyk, jest lub nie ma, jak nie ma to ustawiamy capacity na 0 automatycznie)
--konstruktor (sprawdza tylko czy jest koszyk, nie będę się bawił w marki rowerów)
--destruktor (ważne żeby był)
+    pola:
+        -basket (koszyk, jest lub nie ma, jak nie ma to ustawiamy capacity na 0 automatycznie)
+    metody:    
+        -konstruktor (sprawdza tylko czy jest koszyk, nie będę się bawił w marki rowerów)
+        -destruktor (ważne żeby był)
+
 4.Motorcycle (rozszerza MotorVehicle)
-metody:
--konstruktor (na podstawie marki daje odpowiedni bagażnik, poziom paliwa, cenę itd.)
--destruktor (ważne żeby był)
+    metody:
+        -konstruktor (na podstawie marki daje odpowiedni bagażnik, poziom paliwa, cenę itd.)
+        -destruktor (ważne żeby był)
+
 5. Car (rozszerza MotorVehicle)
--konstruktor (na podstawie marki daje odpowiedni bagażnik, poziom paliwa, cenę itd.)
--destruktor (ważne żeby był)
+    metody:
+        -konstruktor (na podstawie marki daje odpowiedni bagażnik, poziom paliwa, cenę itd.)
+        -destruktor (ważne żeby był)
+
 6.Factory
-pola:
--listOfVehicles (lista wszystkich wyprodukowanych pojazdów)
-metody:
-createVehicle(type, brand) (tworzy pojazd, danego typu (rower, motocykl lub samochód), jeśli to rower to 2 argument sobie radośnie zignoruję, a jeśli to nie rower to ustawi się wszystko jak trzeba)
-sellVehicle(*vehicle) (usuwa z listOfVehicles pointer do danego pojazdu i zwraca ten pointer (tutaj nie wiem czy to dobry pomysł, ale zobaczymy))
+    pola:
+    -listOfVehicles (lista wszystkich wyprodukowanych pojazdów)
+    metody:
+        -createVehicle(type, brand) (tworzy pojazd, danego typu (rower, motocykl lub samochód), jeśli to rower to 2 argument sobie radośnie zignoruję, a jeśli to nie rower to ustawi się wszystko jak trzeba)
+        -sellVehicle(*vehicle) (usuwa z listOfVehicles pointer do danego pojazdu i zwraca ten pointer (tutaj nie wiem czy to dobry pomysł, ale zobaczymy))
+
 7.Client
-pola:
--listOfVehicles (lista wszystkich pojazdów klienta)
--money (hajs klienta)
-metody:
--buyVehicle(*vehicle, price) (dodaje ten pointer do listOfVehicles i odejmuje cenę od budżetu)
--sellVehicle(*vehicle) (usuwa z listOfVehicles pointer do danego pojazdu i zwraca ten pointer (j.w.))
+    pola:
+        -listOfVehicles (lista wszystkich pojazdów klienta)
+        -money (hajs klienta)
+    metody:
+        -buyVehicle(*vehicle, price) (dodaje ten pointer do listOfVehicles i odejmuje cenę od budżetu)
+        -sellVehicle(*vehicle) (usuwa z listOfVehicles pointer do danego pojazdu i zwraca ten pointer (j.w.))
+
 8.CarDealer
-pola:
--listOfMotorVehicles (musiał się uprzeć na te silnikowe, no nic, damy radę)
--budget
--margin
-metody:
--buyMotorVehicle(*motorVehicle) (standardowa procedura, odejmujemy cenę od budżetu, dodajemy pointer, ale jeszcze zmniejszamy przebieg (jeśli marka odpowiednia) i zmieniamy cenę (mnożymy przez marżę))
--sellMotorVehicle(*motorVehicle, price) (dodajemy cenę, usuwamy pointer)
+    pola:
+        -listOfMotorVehicles (musiał się uprzeć na te silnikowe, no nic, damy radę)
+        -budget
+        -margin
+    metody:
+        -buyMotorVehicle(*motorVehicle) (standardowa procedura, odejmujemy cenę od budżetu, dodajemy pointer, ale jeszcze zmniejszamy przebieg (jeśli marka odpowiednia) i zmieniamy cenę (mnożymy przez marżę))
+        -sellMotorVehicle(*motorVehicle, price) (dodajemy cenę, usuwamy pointer)
 
 I teraz sam schemat działania programu:
 1. Tworzymy klienta (albo dwóch, żeby nie było), komis i fabrykę
