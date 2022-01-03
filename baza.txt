@@ -1,0 +1,14 @@
+Factories
+n;factory
+Car;Lamborghini;50.000;50000.000;red
+Car;Mercedes;80.000;0.000;red
+Bike;400.000;10.000;black
+Clients
+n;500000.000;ysgith
+Car;Lamborghini;40.000;1000.000;red
+n;189982.000;kli
+n;1999600.000;iveco
+Bike;999999.000;10.000;green
+CarDealers
+n;990018.000;0.500;diler
+Motorcycle;Volkswagen;0.000;550.000;black

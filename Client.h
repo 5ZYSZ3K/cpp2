@@ -12,9 +12,13 @@ class Client{
         MotorVehicle* getMotorVehicle(int a);
         int getVehiclesSize();
         int getMotorVehiclesSize();
+        string getName();
         Vehicle* getVehicle(int a);
+        void buyVehicleFromFactory(Vehicle* vehicle);
         void buyMotorVehicleFromFactory(MotorVehicle* motorVehicle);
         void buyMotorVehicleFromDealer(MotorVehicle* motorVehicle, double margin);
-        MotorVehicle* sellMotorVehicle(int a);
+        void addVehicle(Vehicle* vehicle);
+        void addMotorVehicle(MotorVehicle* motorVehicle);
+        MotorVehicle* sellMotorVehicle(int a, double b);
         void toString(ostream&);
 };

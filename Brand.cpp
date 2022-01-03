@@ -11,7 +11,7 @@ Brand stringToBrand(string brand){
         return AUDI;
     } else if (brand == "Volkswagen"){
         return VOLKSWAGEN;
-    } else throw 99;
+    } else throw bad_cast();
 }
 
 string brandToString(Brand brand){
@@ -32,6 +32,6 @@ string brandToString(Brand brand){
             return "Volkswagen";
         break;
         default:
-            throw 97;
+            throw bad_cast();
     }
 }

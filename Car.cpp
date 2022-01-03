@@ -20,3 +20,7 @@ template<int p, int c>
 double Car<p,c>::getMileage()const{
     return mileage;
 }
+template<int p, int c>
+string Car<p,c>::getType()const{
+    return "Car";
+}

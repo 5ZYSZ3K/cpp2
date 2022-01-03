@@ -11,6 +11,9 @@ double CarDealer::getBudget(){
 double CarDealer::getMargin(){
     return margin;
 }
+string CarDealer::getName(){
+    return name;
+}
 MotorVehicle* CarDealer::getMotorVehicle(int a){
     if(a >= 0 && a < motorVehicles.size()) return motorVehicles.at(a);
     else {
@@ -29,17 +32,22 @@ void CarDealer::buyMotorVehicle(MotorVehicle* motorVehicle){
     }
     else cout << "You can't afford this vehicle!" << endl;
 }
-MotorVehicle* CarDealer::sellMotorVehicle(int a){
+MotorVehicle* CarDealer::sellMotorVehicle(int a, double b){
     if(a >= 0 && a < motorVehicles.size()){
-        budget += (1+margin)*motorVehicles.at(a)->getPrice();
         MotorVehicle* vehicle = motorVehicles.at(a);
-        motorVehicles.erase(motorVehicles.begin()+a);
+        if(b >= (1+margin)*motorVehicles.at(a)->getPrice()){
+            budget += (1+margin)*motorVehicles.at(a)->getPrice();
+            motorVehicles.erase(motorVehicles.begin()+a);
+        }
         return vehicle;
     }
     else {
         cout << "There is no such vehicle!" << endl;
         return NULL;
     }
+}
+void CarDealer::addMotorVehicle(MotorVehicle* motorVehicle){
+    motorVehicles.push_back(motorVehicle);
 }
 int CarDealer::getMotorVehiclesSize(){
     return motorVehicles.size();

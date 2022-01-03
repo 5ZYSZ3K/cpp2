@@ -10,9 +10,11 @@ class CarDealer{
         CarDealer(double b, double m, string n);
         double getBudget();
         double getMargin();
+        string getName();
         MotorVehicle* getMotorVehicle(int a);
         void buyMotorVehicle(MotorVehicle* motorVehicle);
-        MotorVehicle* sellMotorVehicle(int a);
+        void addMotorVehicle(MotorVehicle* motorVehicle);
+        MotorVehicle* sellMotorVehicle(int a, double b);
         int getMotorVehiclesSize();
         void toString(std::ostream&);
 };

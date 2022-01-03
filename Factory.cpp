@@ -3,22 +3,28 @@
 Factory::Factory(string n){
     name = n;
 }
-void Factory::createVehicle(bool b){
-    vehicles.push_back(new Bike(b));
+void Factory::createVehicle(bool b, string c){
+    vehicles.push_back(new Bike(b, c));
     cout << "Created!" << endl;
 }
-void Factory::createMotorVehicle(VehicleType type, Brand brand){
-    MotorVehicle* vehicle = MotorVehicle::createMotorVehicle(type, brand);
+void Factory::createMotorVehicle(VehicleType type, Brand brand, string co){
+    MotorVehicle* vehicle = MotorVehicle::createMotorVehicle(type, brand, co);
     if(vehicle != NULL){
-        motorVehicles.push_back(MotorVehicle::createMotorVehicle(type, brand));
+        motorVehicles.push_back(MotorVehicle::createMotorVehicle(type, brand, co));
         cout << "Created!" << endl;
     }
     else cout << "An error occured!" << endl;
 }
-Vehicle* Factory::sellVehicle(int a){
+void Factory::addVehicle(Vehicle* vehicle){
+    vehicles.push_back(vehicle);
+}
+void Factory::addMotorVehicle(MotorVehicle* motorVehicle){
+    motorVehicles.push_back(motorVehicle);
+}
+Vehicle* Factory::sellVehicle(int a, double b){
     if(a >=0 && a < vehicles.size()){
         Vehicle* vehicle = vehicles.at(a);
-        vehicles.erase(vehicles.begin()+a);
+        if(b >= vehicles.at(a)->getPrice()) vehicles.erase(vehicles.begin()+a);
         return vehicle;
     }
     else{
@@ -26,10 +32,10 @@ Vehicle* Factory::sellVehicle(int a){
         return NULL;
     }
 }
-MotorVehicle* Factory::sellMotorVehicle(int a){
+MotorVehicle* Factory::sellMotorVehicle(int a, double b){
     if(a >=0 && a < motorVehicles.size()){
         MotorVehicle* motorVehicle = motorVehicles.at(a);
-        motorVehicles.erase(motorVehicles.begin()+a);
+        if(b >= motorVehicles.at(a)->getPrice()) motorVehicles.erase(motorVehicles.begin()+a);
         return motorVehicle;
     }
     else{
@@ -56,6 +62,9 @@ MotorVehicle* Factory::getMotorVehicle(int a){
         cout <<"There is no such vehicle" << endl;
         return NULL;
     }
+}
+string Factory::getName(){
+    return name;
 }
 void Factory::toString(ostream& os){
     os << name << " factory" << endl;

@@ -3,11 +3,11 @@ using namespace std;
 VehicleType stringToVehicleType(string brand){
     if(brand == "Car"){
         return CAR;
-    } else if(brand == "MotorCycle"){
+    } else if(brand == "Motorcycle"){
         return MOTORCYCLE;
     } else if (brand == "Bike"){
         return BIKE;
-    } else throw 98;
+    } else throw bad_cast();
 }
 
 string vehicleTypeToString(VehicleType type){
@@ -22,6 +22,6 @@ string vehicleTypeToString(VehicleType type){
             return "Bike";
         break;
         default:
-            throw 96;
+            throw bad_cast();
     }
 }

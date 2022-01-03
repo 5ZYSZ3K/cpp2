@@ -1,55 +1,49 @@
-MotorVehicle *MotorVehicle::createMotorVehicle(VehicleType type, Brand brand) {
-    try{
-        switch (type) {
-            case CAR:
-                switch(brand){
-                    case BMW:
-                        return new Car<200000,400>(brand, 70, 9);
-                    break;
-                    case LAMBORGHINI:
-                        return new Car<1000000,200>(brand, 100, 12);
-                    break;
-                    case MERCEDES:
-                        return new Car<300000,450>(brand, 80, 10);
-                    break;
-                    case AUDI:
-                        return new Car<50000,600>(brand, 60, 8);
-                    break;
-                    case VOLKSWAGEN:
-                        return new Car<200000,500>(brand, 65, 7);
-                    break;
-                    default:
-                        throw 99;
-                }
-            break;
-            case MOTORCYCLE:
-                switch(brand){
-                    case BMW:
-                        return new MotorCycle<50000,12>(brand, 20, 4);
-                    break;
-                    case LAMBORGHINI:
-                        return new MotorCycle<300000,15>(brand, 30, 6);
-                    break;
-                    case MERCEDES:
-                        return new MotorCycle<100000,13>(brand, 25, 5);
-                    break;
-                    case AUDI:
-                        return new MotorCycle<10000,8>(brand, 15, 4);
-                    break;
-                    case VOLKSWAGEN:
-                        return new MotorCycle<20000,10>(brand, 18, 3);
-                    break;
-                    default:
-                        throw 99;
-                }
-            break;
-            default:
-                throw 97;
-        }
-    }
-    catch(int e){
-        cout << e << endl;
-        return NULL;
+MotorVehicle *MotorVehicle::createMotorVehicle(VehicleType type, Brand brand, string co) {
+    switch (type) {
+        case CAR:
+            switch(brand){
+                case BMW:
+                    return new Car<200000,400>(brand, 70, 9, co);
+                break;
+                case LAMBORGHINI:
+                    return new Car<1000000,200>(brand, 100, 12, co);
+                break;
+                case MERCEDES:
+                    return new Car<300000,450>(brand, 80, 10, co);
+                break;
+                case AUDI:
+                    return new Car<50000,600>(brand, 60, 8, co);
+                break;
+                case VOLKSWAGEN:
+                    return new Car<200000,500>(brand, 65, 7, co);
+                break;
+                default:
+                    throw invalid_argument("");
+            }
+        break;
+        case MOTORCYCLE:
+            switch(brand){
+                case BMW:
+                    return new MotorCycle<50000,12>(brand, 20, 4, co);
+                break;
+                case LAMBORGHINI:
+                    return new MotorCycle<300000,15>(brand, 30, 6, co);
+                break;
+                case MERCEDES:
+                    return new MotorCycle<100000,13>(brand, 25, 5, co);
+                break;
+                case AUDI:
+                    return new MotorCycle<10000,8>(brand, 15, 4, co);
+                break;
+                case VOLKSWAGEN:
+                    return new MotorCycle<20000,10>(brand, 18, 3, co);
+                break;
+                default:
+                    throw invalid_argument("");
+            }
+        break;
+        default:
+            throw invalid_argument("");
     }
 }
 void MotorVehicle::toString(std::ostream& os) const {
@@ -66,12 +60,26 @@ std::ostream& operator<<(std::ostream& os, const MotorVehicle& vehicle)
     vehicle.toString(os);
     return os;
 }
-MotorVehicle::MotorVehicle(Brand a, double b, double d) {
+
+MotorVehicle::MotorVehicle(Brand a, double b, double d, string co) {
     brand = a;
     currentFuelLevel = b;
     maxFuelLevel = b;
     mileage = 0;
     combustion = d;
+    color = co;
+}
+void MotorVehicle::setCurrentFuelLevel(double a){
+    currentFuelLevel = a;
+}
+void MotorVehicle::setMileage(double a){
+    mileage = a;
+}
+string MotorVehicle::getColor(){
+    return color;
+}
+void MotorVehicle::changeColor(string co){
+    color = co;
 }
 void MotorVehicle::refuel(){
     currentFuelLevel = maxFuelLevel;
@@ -79,7 +87,7 @@ void MotorVehicle::refuel(){
 }
 void MotorVehicle::drive(double a){
     if (a>0){
-        if(currentFuelLevel > (a/100*combustion)){
+        if(currentFuelLevel >= (a/100*combustion)){
             mileage+=a;
             currentFuelLevel-=a/100*combustion;
             cout << brandToString(brand) << " is starting" << endl;
