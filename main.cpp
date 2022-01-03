@@ -87,15 +87,11 @@ int main(int argc,  char **argv) {
                             carDealers.push_back(*(new CarDealer(stod(divided.at(0)), stod(divided.at(1)),name)));
                         }
                         else{
-                            cout << "1" <<endl;
-                            cout << s << endl;
                             fileDamaged = true;
                             break;
                         }
                     }
                     else {
-                        cout << "2" <<endl;
-                        cout << s << endl;
                         fileDamaged = true;
                         break;
                     }
@@ -111,28 +107,20 @@ int main(int argc,  char **argv) {
                         if(divided.at(2) == "0") b = false;
                         else if(divided.at(2) == "10.000") b = true;
                         else {
-                            cout << "3" <<endl;
-                            cout << s << endl;
                             fileDamaged = true;
                             break;
                         }
                         if(isNumber(divided.at(1))) m = stod(divided.at(1));
                         else {
-                            cout << "4" <<endl;
-                            cout << s << endl;
                             fileDamaged = true;
                             break;
                         }
-                        for(int i=3; i<divided.size(); i++){
-                            color+=divided.at(i);
-                        }
+                        for(int i=3; i<divided.size(); i++) color+=divided.at(i);
                         Vehicle* vehicle = new Bike(b, color);
                         vehicle->setMileage(m);
                         if(v == 'f') factories.at(pos).addVehicle(vehicle);
                         else if (v == 'c') clients.at(pos).addVehicle(vehicle);
                         else {
-                            cout << "5" <<endl;
-                            cout << s << endl;
                             fileDamaged = true;
                             break; 
                         }
@@ -142,9 +130,7 @@ int main(int argc,  char **argv) {
                             VehicleType type = stringToVehicleType(divided.at(0));
                             Brand brand = stringToBrand(divided.at(1));
                             string color = "";
-                            for(int i=4; i<divided.size(); i++){
-                                color+=divided.at(i);
-                            }
+                            for(int i=4; i<divided.size(); i++) color+=divided.at(i);
                             double cur = stod(divided.at(2));
                             double mil = stod(divided.at(3));
                             MotorVehicle* motorVehicle = MotorVehicle::createMotorVehicle(type, brand, color);
@@ -155,21 +141,15 @@ int main(int argc,  char **argv) {
                             else if(v == 'd') carDealers.at(pos).addMotorVehicle(motorVehicle);
                         }
                         catch(bad_cast e){
-                            cout << "7" <<endl;
-                            cout << s << endl;
                             fileDamaged = true;
                             break; 
                         }
                         catch(invalid_argument e){
-                            cout << "7" <<endl;
-                            cout << s << endl;
                             fileDamaged = true;
                             break; 
                         }
                     }
                     else{
-                        cout << "8" <<endl;
-                        cout << s << endl;
                         fileDamaged = true;
                         break;
                     }
@@ -189,33 +169,33 @@ int main(int argc,  char **argv) {
         cout << "1. Manage factories" << endl;
         cout << "2. Manage clients" << endl;
         cout << "3. Manage car dealers" << endl;
-        cout << "4. Quit" << endl;
+        cout << "0. Quit" << endl;
         string mainOption;
         cin >> mainOption;
         if(mainOption == "1"){
             bool flag2 = true;
             while(flag2){
                 string a;
+                cout << "1. Create new factory" << endl;
                 for(int i=0; i<factories.size(); i++){
-                    cout << i+1 << ". " << factories.at(i);
+                    cout << i+2 << ". " << factories.at(i);
                 }
-                cout << factories.size()+1 << ". Create new factory" << endl;
-                cout << factories.size()+2 << ". Back" << endl;
+                cout << "0. Back" << endl;
                 cout << "Pick a number:";
                 cin >> a;
                 cout << endl;
                 if(isInteger(a)){
                     int pos = stoi(a);
-                    if (pos > 0 && pos <= factories.size()){
+                    if (pos > 1 && pos <= factories.size()+1){
                         bool flag3 = true;
-                        pos--;
+                        pos-=2;
                         while(flag3){
                             string minorOption;
                             cout << "MENU" << endl;
                             cout << "1. List all vehicles" << endl;
                             cout << "2. Create new vehicle" << endl;
                             cout << "3. Delete this factory" << endl;
-                            cout << "4. Back" << endl;
+                            cout << "0. Back" << endl;
                             cout << "Pick a number:";
                             cin >> minorOption;
                             if(minorOption == "1"){
@@ -267,7 +247,7 @@ int main(int argc,  char **argv) {
                                 cout << "Deleted!" << endl;
                                 flag3 = false;
                             }
-                            else if(minorOption == "4"){
+                            else if(minorOption == "0"){
                                 flag3 = false;
                             }
                             else {
@@ -275,16 +255,14 @@ int main(int argc,  char **argv) {
                             }
                         }
                     }
-                    else if (pos == factories.size()+1){
+                    else if (pos == 1){
                         string name;
                         cout << "Enter name: ";
                         cin >> name;
                         cout << endl;
                         factories.push_back(*(new Factory(name)));
                     }
-                    else if (pos == factories.size()+2){
-                        flag2 = false;
-                    }
+                    else if (pos == 0) flag2 = false;
                     else cout << "Wrong value!" << endl;
                 }
                 else cout << "Wrong value!" << endl;
@@ -294,19 +272,19 @@ int main(int argc,  char **argv) {
             bool flag2 = true;
             while(flag2){
                 string a;
+                cout << "1. Create new client" << endl;
                 for(int i=0; i<clients.size(); i++){
-                    cout << i+1 << ". " << clients.at(i);
+                    cout << i+2 << ". " << clients.at(i);
                 }
-                cout << clients.size()+1 << ". Create new client" << endl;
-                cout << clients.size()+2 << ". Back" << endl;
+                cout << "0. Back" << endl;
                 cout << "Pick a number:";
                 cin >> a;
                 cout << endl;
                 if(isInteger(a)){
                     int pos = stoi(a);
-                    if (pos > 0 && pos <= clients.size()){
+                    if (pos > 1 && pos <= clients.size()+1){
                         bool flag3 = true;
-                        pos--;
+                        pos-=2;
                         while(flag3){
                             string minorOption;
                             cout << "MENU" << endl;
@@ -324,7 +302,7 @@ int main(int argc,  char **argv) {
                                 for(int i=0; i<clients.at(pos).getMotorVehiclesSize(); i++){
                                     cout << i+1 << ". " << *clients.at(pos).getMotorVehicle(i);
                                 }
-                                cout << clients.at(pos).getMotorVehiclesSize()+1 << ". Back" << endl;
+                                cout << "0. Back" << endl;
                                 cout << "Pick an option:";
                                 cin >> vehicle;
                                 if(isInteger(vehicle)){
@@ -392,7 +370,7 @@ int main(int argc,  char **argv) {
                                                         for(int i=0; i<carDealers.size(); i++){
                                                             cout << i+1 << ". " << carDealers.at(i);
                                                         }
-                                                        cout << carDealers.size()+1 << ". Back" << endl;
+                                                        cout << "0. Back" << endl;
                                                         cout << "Pick a number:";
                                                         cin >> dealer;
                                                         cout << endl;
@@ -402,7 +380,7 @@ int main(int argc,  char **argv) {
                                                                 pos4--;
                                                                 carDealers.at(pos4).buyMotorVehicle(clients.at(pos).sellMotorVehicle(pos2, carDealers.at(pos4).getBudget()));
                                                             }
-                                                            else if (pos4 == carDealers.size()+1) flag4 = false;
+                                                            else if (pos4 == 0) flag4 = false;
                                                             else cout << "Wrong value!";
                                                         }
                                                     }
@@ -417,9 +395,7 @@ int main(int argc,  char **argv) {
                                             else cout << "Wrong value!" << endl;
                                         }
                                     }
-                                    else if (pos2 == clients.at(pos).getMotorVehiclesSize()+1){
-                                        flag3 = false;
-                                    }
+                                    else if (pos2 == 0) flag3 = false;
                                     else cout << "Wrong value!" << endl;
                                 }
                                 else cout << "Wrong value!" << endl;
@@ -429,7 +405,7 @@ int main(int argc,  char **argv) {
                                 for(int i=0; i<clients.at(pos).getVehiclesSize(); i++){
                                     cout << i+1 << ". " << *clients.at(pos).getVehicle(i);
                                 }
-                                cout << clients.at(pos).getVehiclesSize()+1 << ". Back" << endl;
+                                cout << "0. Back" << endl;
                                 cout << "Pick an option:";
                                 cin >> vehicle;
                                 if(isInteger(vehicle)){
@@ -443,7 +419,7 @@ int main(int argc,  char **argv) {
                                             cout << "2. Get mileage" << endl;
                                             cout << "3. Get capacity" << endl;
                                             cout << "4. Get price" << endl;
-                                            cout << "5. Back" << endl;
+                                            cout << "0. Back" << endl;
                                             string vehicleOption;
                                             cout << "Pick an option:";
                                             cin >> vehicleOption;
@@ -473,7 +449,7 @@ int main(int argc,  char **argv) {
                                                     case 4:
                                                         cout << clients.at(pos).getVehicle(pos2)->getPrice() << endl;
                                                     break;
-                                                    case 5:
+                                                    case 0:
                                                         flag4 = false;
                                                     break;
                                                     default:
@@ -483,7 +459,7 @@ int main(int argc,  char **argv) {
                                             else cout << "Wrong value!" << endl;
                                         }
                                     }
-                                    else if (pos2 == clients.at(pos).getVehiclesSize()+1){
+                                    else if (pos2 == 0){
                                         flag3 = false;
                                     }
                                     else cout << "Wrong value!" << endl;
@@ -495,7 +471,7 @@ int main(int argc,  char **argv) {
                                 for(int i=0; i<factories.size(); i++){
                                     cout << i+1 << ". " << factories.at(i);
                                 }
-                                cout << factories.size()+1 << ". Back" << endl;
+                                cout << "0. Back" << endl;
                                 cout << "Pick an option:";
                                 cin >> factory;
                                 if(isInteger(factory)){
@@ -506,7 +482,7 @@ int main(int argc,  char **argv) {
                                             cout << i+1 << ". " << *factories.at(pos2).getMotorVehicle(i);
                                         }
                                         string vehicle;
-                                        cout << factories.at(pos2).getMotorVehiclesSize()+1 << ". Back" << endl;
+                                        cout << "0. Back" << endl;
                                         cout << "Pick an option:";
                                         cin >> vehicle;
                                         if(isInteger(vehicle)){
@@ -516,16 +492,12 @@ int main(int argc,  char **argv) {
                                                 clients.at(pos).buyMotorVehicleFromFactory(factories.at(pos2).sellMotorVehicle(pos3, clients.at(pos).getMoney()));
                                                 cout << "Bought!" << endl;
                                             }
-                                            else if(pos3 == factories.at(pos2).getMotorVehiclesSize()+1){
-                                                flag3 = false;
-                                            }
+                                            else if(pos3 == 0) flag3 = false;
                                             else cout << "Wrong value!";
                                         }
                                         else cout << "Wrong value!" << endl;
                                     }
-                                    else if(pos2 == factories.size()+1){
-                                        flag3 = false;
-                                    }
+                                    else if(pos2 == 0) flag3 = false;
                                     else cout << "Wrong value!" << endl;
                                 }
                                 else cout << "Wrong value!" << endl;
@@ -535,7 +507,7 @@ int main(int argc,  char **argv) {
                                 for(int i=0; i<factories.size(); i++){
                                     cout << i+1 << ". " << factories.at(i);
                                 }
-                                cout << factories.size()+1 << ". Back" << endl;
+                                cout << "0. Back" << endl;
                                 cout << "Pick an option:";
                                 cin >> factory;
                                 if(isInteger(factory)){
@@ -546,7 +518,7 @@ int main(int argc,  char **argv) {
                                             cout << i+1 << ". " << *factories.at(pos2).getVehicle(i);
                                         }
                                         string vehicle;
-                                        cout << factories.at(pos2).getVehiclesSize()+1 << ". Back" << endl;
+                                        cout << "0. Back" << endl;
                                         cout << "Pick an option:";
                                         cin >> vehicle;
                                         if(isInteger(vehicle)){
@@ -555,14 +527,12 @@ int main(int argc,  char **argv) {
                                                 clients.at(pos).buyVehicleFromFactory(factories.at(pos2).sellVehicle(pos3-1, clients.at(pos).getMoney()));
                                                 cout << "Bought!" << endl;
                                             }
-                                            else if(pos3 == factories.at(pos).getVehiclesSize()+1){
-                                                flag3 = false;
-                                            }
+                                            else if(pos3 == 0) flag3 = false;
                                             else cout << "Wrong value!";
                                         }
                                         else cout << "Wrong value!" << endl;
                                     }
-                                    else if(pos2 == factories.size()+1){
+                                    else if(pos2 == 0){
                                         flag3 = false;
                                     }
                                     else cout << "Wrong value!" << endl;
@@ -574,7 +544,7 @@ int main(int argc,  char **argv) {
                                 for(int i=0; i<carDealers.size(); i++){
                                     cout << i+1 << ". " << carDealers.at(i);
                                 }
-                                cout << carDealers.size()+1 << ". Back" << endl;
+                                cout << "0. Back" << endl;
                                 cout << "Pick a number:";
                                 cin >> dealer;
                                 cout << endl;
@@ -586,7 +556,7 @@ int main(int argc,  char **argv) {
                                         for(int i=0; i<carDealers.at(pos2).getMotorVehiclesSize(); i++){
                                             cout << i+1 << ". " << *carDealers.at(pos2).getMotorVehicle(i);
                                         }
-                                        cout << carDealers.at(pos2).getMotorVehiclesSize()+1 << ". Back" << endl;
+                                        cout << "0. Back" << endl;
                                         cout << "Pick an option:";
                                         cin >> vehicle;
                                         if(isInteger(vehicle)){
@@ -595,11 +565,11 @@ int main(int argc,  char **argv) {
                                                 pos3--;
                                                 clients.at(pos).buyMotorVehicleFromDealer(carDealers.at(pos2).sellMotorVehicle(pos3, clients.at(pos).getMoney()), carDealers.at(pos2).getMargin());
                                             }
-                                            else if(pos3 == carDealers.at(pos2).getMotorVehiclesSize()+1) flag3 = false;
+                                            else if(pos3 == 0) flag3 = false;
                                             else cout << "Wrong value!" << endl;
                                         }
                                     }
-                                    else if(pos2 == carDealers.size()+1) flag3 = false;
+                                    else if(pos2 == 0) flag3 = false;
                                     else cout << "Wrong value!" << endl;
                                 }
                             }
@@ -615,7 +585,7 @@ int main(int argc,  char **argv) {
                             else cout << "Wrong value!" << endl;
                         }
                     }
-                    else if (pos == clients.size()+1){
+                    else if (pos == 1){
                         string name;
                         cout << "Enter name: ";
                         cin >> name;
@@ -629,9 +599,7 @@ int main(int argc,  char **argv) {
                         }
                         else cout << "Wrong value!" << endl;
                     }
-                    else if (pos == clients.size()+2){
-                        flag2 = false;
-                    }
+                    else if (pos == 0) flag2 = false;
                     else cout << "Wrong value!" << endl;
                 }
                 else cout << "Wrong value!" << endl;
@@ -641,19 +609,19 @@ int main(int argc,  char **argv) {
             bool flag2 = true;
             while(flag2){
                 string a;
+                cout << "1. Create new Car Dealer" << endl;
                 for(int i=0; i<carDealers.size(); i++){
-                    cout << i+1 << ". " << carDealers.at(i);
+                    cout << i+2 << ". " << carDealers.at(i);
                 }
-                cout << carDealers.size()+1 << ". Create new Car Dealer" << endl;
-                cout << carDealers.size()+2 << ". Back" << endl;
+                cout << "0. Back" << endl;
                 cout << "Pick a number:";
                 cin >> a;
                 cout << endl;
                 if(isNumber(a)){
                     int pos = stoi(a);
-                    if (pos > 0 && pos <= carDealers.size()){
+                    if (pos > 1 && pos <= carDealers.size()+1){
                         bool flag3 = true;
-                        pos--;
+                        pos-=2;
                         while(flag3){
                             string minorOption;
                             cout << "MENU" << endl;
@@ -668,7 +636,7 @@ int main(int argc,  char **argv) {
                                 for(int i=0; i<carDealers.at(pos).getMotorVehiclesSize(); i++){
                                     cout << i+1 << ". " << *carDealers.at(pos).getMotorVehicle(i);
                                 }
-                                cout << carDealers.at(pos).getMotorVehiclesSize()+1 << ". Back" << endl;
+                                cout << "0. Back" << endl;
                                 cout << "Pick an option:";
                                 cin >> vehicle;
                                 if(isInteger(vehicle)){
@@ -685,7 +653,7 @@ int main(int argc,  char **argv) {
                                             cout << "5. Get capacity" << endl;
                                             cout << "6. Get price" << endl;
                                             cout << "7. Sell" << endl;
-                                            cout << "8. Back" << endl;
+                                            cout << "0. Back" << endl;
                                             string vehicleOption;
                                             cout << "Pick an option:";
                                             cin >> vehicleOption;
@@ -727,7 +695,7 @@ int main(int argc,  char **argv) {
                                                         for(int i=0; i<clients.size(); i++){
                                                             cout << i+1 << ". " << clients.at(i);
                                                         }
-                                                        cout << clients.size()+1 << ". Back" << endl;
+                                                        cout << "0. Back" << endl;
                                                         cout << "Pick a number:";
                                                         cin >> client;
                                                         cout << endl;
@@ -737,12 +705,12 @@ int main(int argc,  char **argv) {
                                                                 pos3--;
                                                                 clients.at(pos3).buyMotorVehicleFromDealer(carDealers.at(pos).sellMotorVehicle(pos2, clients.at(pos3).getMoney()), carDealers.at(pos).getMargin());
                                                             }
-                                                            else if (pos3 == carDealers.size()+1) flag4 = false;
+                                                            else if (pos3 == 0) flag4 = false;
                                                             else cout << "Wrong value!";
                                                         }
                                                     }
                                                     break;
-                                                    case 8:
+                                                    case 0:
                                                         flag4 = false;
                                                     break;
                                                     default:
@@ -752,9 +720,7 @@ int main(int argc,  char **argv) {
                                             else cout << "Wrong value!" << endl;
                                         }
                                     }
-                                    else if (pos2 == carDealers.at(pos).getMotorVehiclesSize()+1){
-                                        flag3 = false;
-                                    }
+                                    else if (pos2 == 0) flag3 = false;
                                     else cout << "Wrong value!" << endl;
                                 }
                                 else cout << "Wrong value!" << endl;
@@ -764,7 +730,7 @@ int main(int argc,  char **argv) {
                                 for(int i=0; i<clients.size(); i++){
                                     cout << i+1 << ". " << clients.at(i);
                                 }
-                                cout << clients.size()+1 << ". Back" << endl;
+                                cout << "0. Back" << endl;
                                 cout << "Pick a number:";
                                 cin >> client;
                                 cout << endl;
@@ -778,7 +744,7 @@ int main(int argc,  char **argv) {
                                             for(int i=0; i<clients.at(pos2).getMotorVehiclesSize(); i++){
                                                 cout << i+1 << ". " << *clients.at(pos2).getMotorVehicle(i);
                                             }
-                                            cout << clients.at(pos2).getMotorVehiclesSize()+1 << ". Back" << endl;
+                                            cout << "0. Back" << endl;
                                             cout << "Pick an option:";
                                             cin >> vehicle;
                                             if(isInteger(vehicle)){
@@ -788,14 +754,12 @@ int main(int argc,  char **argv) {
                                                     carDealers.at(pos).buyMotorVehicle(clients.at(pos2).sellMotorVehicle(pos3, carDealers.at(pos).getBudget()));
                                                     cout << "Done!" << endl;
                                                 }
-                                                else if (pos3 == clients.at(pos2).getMotorVehiclesSize()+1){
-                                                    flag4 = false;
-                                                }
+                                                else if (pos3 == 0) flag4 = false;
                                                 else cout << "Wrong value!" << endl;
                                             }
                                         }
                                     }
-                                    else if (pos2 == clients.size()+1){
+                                    else if (pos2 == 0){
                                         flag3 = false;
                                     }
                                     else cout << "Wrong value!" << endl;
@@ -812,7 +776,7 @@ int main(int argc,  char **argv) {
                             }
                         }
                     }
-                    else if (pos == carDealers.size()+1){
+                    else if (pos == 1){
                         string name;
                         cout << "Enter name: ";
                         cin >> name;
@@ -833,22 +797,14 @@ int main(int argc,  char **argv) {
                         }
                         else cout << "Wrong value!" << endl;
                     }
-                    else if (pos == carDealers.size()+2){
-                        flag2 = false;
-                    }
+                    else if (pos == 0) flag2 = false;
                     else cout << "Wrong value!" << endl;
                 }
                 else cout << "Wrong value!" << endl;
             }
         }
-        else if(mainOption == "4"){
-            flag = false;
-        }
-        else {
-            cout << "Wrong value!" << endl;
-            cout << mainOption << endl;
-            flag = false;
-        }
+        else if(mainOption == "0") flag = false;
+        else cout << "Wrong value!" << endl;
     }
     cout << "Do you want to save changes? Type in '1', if yes, and '2', if no: ";
     string save;

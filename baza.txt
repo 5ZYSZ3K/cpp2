@@ -9,6 +9,7 @@ Car;Lamborghini;40.000;1000.000;red
 n;189982.000;kli
 n;1999600.000;iveco
 Bike;999999.000;10.000;green
+n;200000.000;klient
 CarDealers
 n;990018.000;0.500;diler
 Motorcycle;Volkswagen;0.000;550.000;black
