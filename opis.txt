@@ -1,0 +1,14 @@
+Program w funkcji main wczytuje dane z pilku (zapisane w odpowiednim schemacie), oraz, jeśli standard danych w pliku jest zachowany, zapisuje je do pliku. W przeciwnym wypadku wyświetla informację o uszkodzonej bazie, i pozwala na pracę bez danych wejściowych.
+Następnie realizowana jest główna pętla, w której użytkownik może zarządzać fabrykami, klientami i komisami, oraz przynależnymi do nich pojazdami. Wewnątrz głównej pętli są też zagnieżdżone pętle poboczne, które mają poprawić UX.
+Klient oraz komis mają pełny dostęp do funkcji pojazdów, natomiast fabryka może je tylko wyświetlać.
+Wszystkimi pojazdami można jeździć, można sprawdzić ich przebieg, sprawdzić pojemność oraz aktualną cenę.
+Pojazdy silnikowe można ponadto tankować, sprawdzać kolor oraz przemalowywać (przemalowywanie odbywa się za pomocą specjalnie utworzonej klasy Lakiernik)
+Klient może również zakupić pojazd (każdego rodzaju), od fabryki, po podstawowej cenie. Może również zakupić pojazd silnikowy od komisu, po cenie samochodu takiej, jaką zwróci funkcja, powiększonej o marżę. Klient może również sprzedać pojazd silnikowy wybranemu komisowi, po cenie takiej, jaką zwróci funkcja.
+Fabryka może wyłącznie produkować samochody
+Komis może kupić pojazd silnikowy od wybranego klienta. Zakup odbywa się po cenie takiej, jaką zwróci funkcja.
+Wszelkie transakcje kupno-sprzedaż dojdą do skutku wyłącznie, gdy strona kupująca ma wystarczająco dużo pieniędzy.
+Użytkownik ma możliwość tworzenia nowych klientów, fabryk oraz komisów, oraz usuwanie istniejących.
+Na końcu programu użytkownik ma możliwość zapisania wszystkich zmian do pliku lub usunięcie ich. Jeśli zdecyduje się zapisać, dane zostaną w określonym standardzie zapisane do pliku baza.txt
+
+W projekcie znajduje się 5 plików tekstowych, z nazwą rozpoczynającą się na stdin. Jeśli program zostanie wywołany z parametrem, parametr zostanie uznany za ścieżkę, i nastąpi próba wczytania wejścia z pliku pod podaną ścieżką. Jeśli natomiast taki plik nie istnieje, wejście będzie czytane standardowo
+Spośród tych plików, te 2, które kończą się na failed, przedstawiają bloki try...catch w działaniu. Natomiast plik stdin_create.txt pokazuje poprawne wykorzystywanie szablonu klasy.

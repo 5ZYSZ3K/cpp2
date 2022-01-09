@@ -42,7 +42,7 @@ std::vector<std::string> split(std::string str, std::string det){
 
 int main(int argc,  char **argv) {
     ifstream in(argv[1]);
-    if(argc > 1){
+    if(argc > 1 && in.is_open()){
         cin.rdbuf(in.rdbuf());
     }
     vector<Factory> factories;
@@ -50,6 +50,7 @@ int main(int argc,  char **argv) {
     vector<CarDealer> carDealers;
     Painter painter;
     bool fileDamaged = false;
+    //wczytywanie z pliku. Program cały czas sprawdza, czy dane są w określonym formacie. Jeśli nie, zmienia flagę fileDamaged na true, co czyści dane wejściowe i wyświetla komunikat
     ifstream base("baza.txt", std::ofstream::out);
     if(base.is_open()){
         char row[99];
@@ -163,6 +164,7 @@ int main(int argc,  char **argv) {
         carDealers.clear();
         cout << "Database has been damaged" << endl;
     }
+    //główna pętla programu
     bool flag = true;
     while(flag){
         cout << "MENU (pick a number of an option)" << endl;
@@ -189,6 +191,7 @@ int main(int argc,  char **argv) {
                     if (pos > 1 && pos <= factories.size()+1){
                         bool flag3 = true;
                         pos-=2;
+                        //zarządzanie istniejącą fabryką
                         while(flag3){
                             string minorOption;
                             cout << "MENU" << endl;
@@ -198,6 +201,7 @@ int main(int argc,  char **argv) {
                             cout << "0. Back" << endl;
                             cout << "Pick a number:";
                             cin >> minorOption;
+                            //wyświetlanie pojazdów
                             if(minorOption == "1"){
                                 for(int i=0; i<factories.at(pos).getMotorVehiclesSize(); i++){
                                     cout << i+1 << ". " << *factories.at(pos).getMotorVehicle(i);
@@ -206,6 +210,7 @@ int main(int argc,  char **argv) {
                                     cout << factories.at(pos).getVehiclesSize()+i+1 << ". " << *factories.at(pos).getVehicle(i);
                                 }
                             }
+                            //tworzenie pojazdu
                             else if(minorOption == "2"){
                                 cout << "Type in a color name: ";
                                 string color;
@@ -255,6 +260,7 @@ int main(int argc,  char **argv) {
                             }
                         }
                     }
+                    //tworzenie fabryki
                     else if (pos == 1){
                         string name;
                         cout << "Enter name: ";
@@ -282,6 +288,7 @@ int main(int argc,  char **argv) {
                 cout << endl;
                 if(isInteger(a)){
                     int pos = stoi(a);
+                    //zarządzanie istniejącym klientem
                     if (pos > 1 && pos <= clients.size()+1){
                         bool flag3 = true;
                         pos-=2;
@@ -297,6 +304,7 @@ int main(int argc,  char **argv) {
                             cout << "7. Delete this client" << endl;
                             cout << "0. Back" << endl;
                             cin >> minorOption;
+                            //wybór pojazdu silnikowego i zarządanie nim
                             if(minorOption == "1"){
                                 string vehicle;
                                 for(int i=0; i<clients.at(pos).getMotorVehiclesSize(); i++){
@@ -400,6 +408,7 @@ int main(int argc,  char **argv) {
                                 }
                                 else cout << "Wrong value!" << endl;
                             }
+                            //zarządzanie pojazdami niesilnikowymi
                             else if(minorOption == "2"){
                                 string vehicle;
                                 for(int i=0; i<clients.at(pos).getVehiclesSize(); i++){
@@ -466,6 +475,7 @@ int main(int argc,  char **argv) {
                                 }
                                 else cout << "Wrong value!" << endl;
                             }
+                            //kupno pojazdu silnikowego z fabryki
                             else if(minorOption == "3"){
                                 string factory;
                                 for(int i=0; i<factories.size(); i++){
@@ -502,6 +512,7 @@ int main(int argc,  char **argv) {
                                 }
                                 else cout << "Wrong value!" << endl;
                             }
+                            //kupno pojazdu niesilnikowego z fabryki
                             else if(minorOption == "4"){
                                 string factory;
                                 for(int i=0; i<factories.size(); i++){
@@ -539,6 +550,7 @@ int main(int argc,  char **argv) {
                                 }
                                 else cout << "Wrong value!" << endl;
                             }
+                            //kupno pojazdu silnikowego z komisu
                             else if(minorOption == "5"){
                                 string dealer;
                                 for(int i=0; i<carDealers.size(); i++){
@@ -573,7 +585,9 @@ int main(int argc,  char **argv) {
                                     else cout << "Wrong value!" << endl;
                                 }
                             }
+                            //wyświetlanie pieniędzy
                             else if(minorOption == "6") cout << clients.at(pos).getMoney() << endl;
+                            //usuwanie klienta
                             else if(minorOption == "7"){
                                 clients.erase(clients.begin()+pos);
                                 cout << "Deleted!" << endl;
@@ -585,6 +599,7 @@ int main(int argc,  char **argv) {
                             else cout << "Wrong value!" << endl;
                         }
                     }
+                    //tworzenie klienta
                     else if (pos == 1){
                         string name;
                         cout << "Enter name: ";
@@ -619,6 +634,7 @@ int main(int argc,  char **argv) {
                 cout << endl;
                 if(isNumber(a)){
                     int pos = stoi(a);
+                    //zarządanie istniejącymi komisami
                     if (pos > 1 && pos <= carDealers.size()+1){
                         bool flag3 = true;
                         pos-=2;
@@ -631,6 +647,7 @@ int main(int argc,  char **argv) {
                             cout << "4. Delete this car dealer" << endl;
                             cout << "0. Back" << endl;
                             cin >> minorOption;
+                            //zarządzanie pojazdami silnikowymi komisu
                             if(minorOption == "1"){
                                 string vehicle;
                                 for(int i=0; i<carDealers.at(pos).getMotorVehiclesSize(); i++){
@@ -725,6 +742,7 @@ int main(int argc,  char **argv) {
                                 }
                                 else cout << "Wrong value!" << endl;
                             }
+                            //kupno pojazdu silnikowego od klienta
                             else if(minorOption == "2"){
                                 string client;
                                 for(int i=0; i<clients.size(); i++){
@@ -765,7 +783,9 @@ int main(int argc,  char **argv) {
                                     else cout << "Wrong value!" << endl;
                                 }
                             }
+                            //wyświetlanie pieniędzy
                             else if(minorOption == "3") cout << carDealers.at(pos).getBudget() << endl;
+                            //usuwanie komisu
                             else if(minorOption == "4"){
                                 carDealers.erase(carDealers.begin()+pos);
                                 cout << "Deleted!" << endl;
@@ -776,6 +796,7 @@ int main(int argc,  char **argv) {
                             }
                         }
                     }
+                    //tworzenie komisu
                     else if (pos == 1){
                         string name;
                         cout << "Enter name: ";
@@ -809,6 +830,7 @@ int main(int argc,  char **argv) {
     cout << "Do you want to save changes? Type in '1', if yes, and '2', if no: ";
     string save;
     cin >> save;
+    //zapisywanie do pliku
     if(save == "1"){
         ofstream save_file("baza.txt");
         save_file <<fixed;
